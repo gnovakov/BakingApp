@@ -1,6 +1,7 @@
 package com.example.bakingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,15 +21,19 @@ public class MainActivity extends AppCompatActivity {
 
     private JSONArray mRecipes;
 
+    private RecyclerView recipesRv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        recipesRv = findViewById(R.id.rv_recipes);
+
         makeSortQuery();
     }
 
-    // Build URL
+    // Build the URL
     void makeSortQuery() {
         URL url = NetworkUtils.buildUrl();
 
@@ -36,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         new GetMoviesTask().execute(url);
     }
 
-    // AsyncTask
+    // AsyncTask for building out the URL
     public class GetMoviesTask extends AsyncTask<URL, Void, String> {
 
         @Override
@@ -56,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
 
-            Log.i("WWWWWWWWWWWWWWWWWWWWWW", "WWWWWWWWWWWWWWWWWWWWWW " + mRecipes);
+            Log.i("URL BEFORE PARSING", "URL RESULTS " + mRecipes);
 
             try {
                 JSONArray resultsArray = new JSONArray(result);
@@ -67,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //mRecyclerView.setAdapter(mMovieAdapter);
 
-                Log.i("WWWWWWWWWWWWWWWWWWWWWW", "WWWWWWWWWWWWWWWWWWWWWW " + mRecipes);
+                Log.i("URL AFTER PARSING", "URL RESULTS " + mRecipes);
 
             } catch (JSONException e) {
                 e.printStackTrace();
