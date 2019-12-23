@@ -1,6 +1,7 @@
 package com.example.bakingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
@@ -19,17 +20,22 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
 
 
-    private JSONArray mRecipes;
+    private RecyclerView recipesRecyclerView;
 
-    private RecyclerView recipesRv;
+    private RecipesAdapter recipesAdapter;
+
+    private JSONArray recipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recipesRv = findViewById(R.id.rv_recipes);
+        recipesRecyclerView = findViewById(R.id.rv_recipes);
+        recipesRecyclerView.setHasFixedSize(true);
+        recipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //Runs the Query to Fetch Results
         makeSortQuery();
     }
 
@@ -61,18 +67,18 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
 
-            Log.i("URL BEFORE PARSING", "URL RESULTS " + mRecipes);
+            Log.i("URL BEFORE PARSING", "URL RESULTS " + recipes);
 
             try {
                 JSONArray resultsArray = new JSONArray(result);
-                mRecipes = resultsArray;
+                recipes = resultsArray;
 
-                //mMovieAdapter = new MovieAdapter(MainActivity.this, mMovie, MainActivity.this);
+                recipesAdapter = new RecipesAdapter(MainActivity.this, recipes);
 
 
-                //mRecyclerView.setAdapter(mMovieAdapter);
+                recipesRecyclerView.setAdapter(recipesAdapter);
 
-                Log.i("URL AFTER PARSING", "URL RESULTS " + mRecipes);
+                Log.i("URL AFTER PARSING", "URL RESULTS " + recipes);
 
             } catch (JSONException e) {
                 e.printStackTrace();
