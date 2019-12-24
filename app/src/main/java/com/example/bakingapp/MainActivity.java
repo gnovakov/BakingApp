@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecipesAdapter recipesAdapter;
 
-    private JSONArray recipes;
+    private JSONArray recipesArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,18 +67,18 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
 
-            Log.i("URL BEFORE PARSING", "URL RESULTS " + recipes);
+            Log.i("URL BEFORE PARSING", "URL RESULTS " + recipesArray);
 
             try {
                 JSONArray resultsArray = new JSONArray(result);
-                recipes = resultsArray;
+                recipesArray = resultsArray;
 
-                recipesAdapter = new RecipesAdapter(MainActivity.this, recipes);
+                recipesAdapter = new RecipesAdapter(MainActivity.this, recipesArray);
 
 
                 recipesRecyclerView.setAdapter(recipesAdapter);
 
-                Log.i("URL AFTER PARSING", "URL RESULTS " + recipes);
+                Log.i("URL AFTER PARSING", "URL RESULTS " + recipesArray);
 
             } catch (JSONException e) {
                 e.printStackTrace();
