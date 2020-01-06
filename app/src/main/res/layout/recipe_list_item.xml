@@ -1,35 +1,3 @@
-<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="10dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <androidx.cardview.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view_recipe"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        card_view:cardCornerRadius="0dp">
-
-        <TextView
-            android:id="@+id/recipe_name_textView"
-            android:padding="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/card_title"
-            android:textColor="#000"
-            android:textSize="18sp"/>
-
-    </androidx.cardview.widget.CardView>
-
-
-</FrameLayout>-->
-
-
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
