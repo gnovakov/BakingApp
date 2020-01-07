@@ -20,9 +20,18 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
     private Context ctx;
     private JSONArray mRecipesArray;
 
-    public RecipesAdapter(Context ct,JSONArray recipesArray) {
+
+    private OnRecipeClickListener mOnRecipeClickListener;
+
+    public interface OnRecipeClickListener {
+        void onRecipeClick(int clickRecipePosition);
+
+    }
+
+    public RecipesAdapter(Context ct,JSONArray recipesArray, OnRecipeClickListener listener) {
         ctx = ct;
         mRecipesArray = recipesArray;
+        mOnRecipeClickListener = listener;
     }
 
     @NonNull
@@ -56,7 +65,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView recipeName;
 
 
@@ -65,8 +74,14 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
             super(itemView);
             recipeName = itemView.findViewById(R.id.recipe_name_textView);
 
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+
+            mOnRecipeClickListener.onRecipeClick(getAdapterPosition());
+        }
     }
 
 }

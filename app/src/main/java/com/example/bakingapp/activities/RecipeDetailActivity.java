@@ -1,4 +1,4 @@
-package com.example.bakingapp.fragments;
+package com.example.bakingapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
