@@ -1,4 +1,4 @@
-package com.example.bakingapp;
+package com.example.bakingapp.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.bakingapp.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,6 +58,8 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView recipeName;
+
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

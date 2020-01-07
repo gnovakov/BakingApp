@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.bakingapp.R;
+
 public class RecipeDetailsFragment extends Fragment {
 
     public RecipeDetailsFragment() {
@@ -17,6 +19,10 @@ public class RecipeDetailsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+
+        View rootView = inflater.inflate(R.layout.fragment_recipe_details, container, false);
+
+        return rootView;
     }
+
 }
