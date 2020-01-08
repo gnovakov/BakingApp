@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.bakingapp.R;
 
-public class RecipeDetailsFragment extends Fragment {
+public class RecipeDetailFragment extends Fragment {
 
-    public RecipeDetailsFragment() {
+    public RecipeDetailFragment() {
     }
 
     @Nullable
