@@ -53,7 +53,6 @@ public class RecipeStepsAndDetailActivity extends AppCompatActivity {
         // Put data into bundle
         data.putString("recipeName", recipeName);
         data.putString("recipeSteps", recipeSteps);
-        data.putString("recipeIngredients", recipeIngredients);
 
         recipeStepsFragment.setArguments(data); // Set argument bundle to our fragment
 
