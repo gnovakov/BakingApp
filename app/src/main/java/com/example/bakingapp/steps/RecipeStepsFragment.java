@@ -1,11 +1,13 @@
 package com.example.bakingapp.steps;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,17 +17,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bakingapp.R;
+import com.example.bakingapp.details.RecipeDetailActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
-public class RecipeStepsFragment extends Fragment {
+public class RecipeStepsFragment extends Fragment implements StepsAdapter.OnStepClickListener {
 
     RecyclerView stepsRecyclerView;
     StepsAdapter stepsAdapter;
 
     RecyclerView ingredientsRecyclerView;
     IngredientsAdapter ingredientsAdapter;
+
+    private String recipeNameData;
+    private String recipeStepsData;
+    private String recipeIngredientsData;
+
 
     public RecipeStepsFragment() {}
 
@@ -37,9 +45,9 @@ public class RecipeStepsFragment extends Fragment {
         TextView recipeName = rootView.findViewById(R.id.recipeName); // Find TextView id
 
         // Get Argument that was passed from activity
-        String recipeNameData = getArguments().getString("recipeName");
-        String recipeStepsData = getArguments().getString("recipeSteps");
-        String recipeIngredientsData = getArguments().getString("recipeIngredients");
+         recipeNameData = getArguments().getString("recipeName");
+         recipeStepsData = getArguments().getString("recipeSteps");
+         recipeIngredientsData = getArguments().getString("recipeIngredients");
 
         try {
             JSONArray recipeStepsDataArray = new JSONArray(recipeStepsData);
@@ -77,7 +85,7 @@ public class RecipeStepsFragment extends Fragment {
         stepsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //Create adaptor and send the data to it
-        stepsAdapter = new StepsAdapter(recipeStepsDataArray);
+        stepsAdapter = new StepsAdapter(recipeStepsDataArray, RecipeStepsFragment.this);
 
         // Set adapter to the recycler view
         stepsRecyclerView.setAdapter(stepsAdapter);
@@ -102,6 +110,17 @@ public class RecipeStepsFragment extends Fragment {
         ingredientsRecyclerView.setAdapter(ingredientsAdapter);
     }
 
+    @Override
+    public void onStepClick(int clickStepPosition) {
+        //Toast.makeText(getContext(), "Position clicked = " + clickStepPosition, Toast.LENGTH_SHORT).show();
 
+        Intent intent = new Intent(getContext(), RecipeDetailActivity.class);
+
+        intent.putExtra("recipeSteps", recipeStepsData); // need to send data that coresponds to the position of the list that was clicked not all the data
+
+        //Start the Activity the Intent is set to when an item is clicked, all data added with intent.putExtra will be sent to that Activity.
+        startActivity(intent);
+
+    }
 
 }

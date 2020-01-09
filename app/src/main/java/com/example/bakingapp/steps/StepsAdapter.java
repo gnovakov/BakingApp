@@ -17,9 +17,15 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.ViewHolder> 
 
     private JSONArray mRecipeSteps;
 
-    public StepsAdapter(JSONArray recipeSteps) {
+    private OnStepClickListener mOnStepClickListener;
 
+    public interface OnStepClickListener {
+        void onStepClick(int clickStepPosition);
+    }
+
+    public StepsAdapter(JSONArray recipeSteps, OnStepClickListener listener) {
         mRecipeSteps = recipeSteps;
+        mOnStepClickListener = listener;
     }
 
     @NonNull
@@ -51,7 +57,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.ViewHolder> 
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView stepName;
 
 
@@ -59,8 +65,15 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.ViewHolder> 
             super(itemView);
             stepName = itemView.findViewById(R.id.steps_name_textView);
 
+            itemView.setOnClickListener(this);
+
         }
 
 
+        @Override
+        public void onClick(View v) {
+            mOnStepClickListener.onStepClick(getAdapterPosition());
+
+        }
     }
 }
