@@ -7,4 +7,5 @@
     <string name="step_short_description">Step Title</string>
     <string name="step_description">Step Description</string>
     <string name="ingredients">Ingredients :</string>
+    <string name="steps">Steps :</string>
 </resources>
