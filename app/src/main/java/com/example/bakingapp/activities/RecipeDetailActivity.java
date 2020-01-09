@@ -1,4 +1,4 @@
-package com.example.bakingapp.details;
+package com.example.bakingapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,4 +1,4 @@
-package com.example.bakingapp.details;
+package com.example.bakingapp.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

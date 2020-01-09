@@ -1,14 +1,16 @@
-package com.example.bakingapp.steps;
+package com.example.bakingapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.example.bakingapp.R;
+import com.example.bakingapp.fragments.RecipeStepsFragment;
 
 public class RecipeStepsAndDetailActivity extends AppCompatActivity {
 
@@ -51,7 +53,6 @@ public class RecipeStepsAndDetailActivity extends AppCompatActivity {
         // Put data into bundle
         data.putString("recipeName", recipeName);
         data.putString("recipeSteps", recipeSteps);
-        data.putString("recipeIngredients", recipeIngredients);
 
         recipeStepsFragment.setArguments(data); // Set argument bundle to our fragment
 

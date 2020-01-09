@@ -1,4 +1,4 @@
-package com.example.bakingapp.main;
+package com.example.bakingapp.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
