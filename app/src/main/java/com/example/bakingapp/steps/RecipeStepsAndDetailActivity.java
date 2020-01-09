@@ -1,16 +1,15 @@
-package com.example.bakingapp.activities;
+package com.example.bakingapp.steps;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.example.bakingapp.R;
-import com.example.bakingapp.fragments.RecipeStepsFragment;
+import com.example.bakingapp.steps.RecipeStepsFragment;
 
 public class RecipeStepsAndDetailActivity extends AppCompatActivity {
 

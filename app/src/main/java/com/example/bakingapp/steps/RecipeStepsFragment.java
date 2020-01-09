@@ -1,4 +1,4 @@
-package com.example.bakingapp.fragments;
+package com.example.bakingapp.steps;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bakingapp.Adapters.RecipesAdapter;
-import com.example.bakingapp.Adapters.StepsAdapter;
+import com.example.bakingapp.steps.StepsAdapter;
 import com.example.bakingapp.R;
 
 import org.json.JSONArray;
@@ -32,15 +31,20 @@ public class RecipeStepsFragment extends Fragment {
         RecyclerView stepsRecyclerView;
         StepsAdapter stepsAdapter;
 
+        //RecyclerView ingredientsRecyclerView;
+        //IngredientsAdapter ingredientsAdapter;
+
         View rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false); // Inflate Layout
         TextView recipeName = rootView.findViewById(R.id.recipeName); // Find TextView id
 
         // Get Argument that was passed from activity
         String recipeNameData = getArguments().getString("recipeName");
         String recipeStepsData = getArguments().getString("recipeSteps");
+        String recipeIngredientsData = getArguments().getString("recipeIngredients");
 
         try {
             JSONArray recipeStepsDataArray = new JSONArray(recipeStepsData);
+            JSONArray recipeIngredientsDataArray = new JSONArray(recipeIngredientsData);
 
 
             Log.d( "TEST", "onCreateView: " + "recipeIngredients: " + recipeNameData);

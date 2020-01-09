@@ -1,4 +1,4 @@
-package com.example.bakingapp.activities;
+package com.example.bakingapp.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,8 +9,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.bakingapp.Adapters.RecipesAdapter;
 import com.example.bakingapp.R;
+import com.example.bakingapp.steps.RecipeStepsAndDetailActivity;
 import com.example.bakingapp.utilities.NetworkUtils;
 
 import org.json.JSONArray;
@@ -18,7 +18,6 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements  RecipesAdapter.OnRecipeClickListener{
 
