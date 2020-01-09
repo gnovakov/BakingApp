@@ -14,7 +14,7 @@
         app:cardCornerRadius="0dp">
 
         <TextView
-            android:id="@+id/recipe_name_textView"
+            android:id="@+id/steps_name_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"

@@ -21,18 +21,17 @@ import org.json.JSONException;
 
 public class RecipeStepsFragment extends Fragment {
 
+    RecyclerView stepsRecyclerView;
+    StepsAdapter stepsAdapter;
+
+    RecyclerView ingredientsRecyclerView;
+    IngredientsAdapter ingredientsAdapter;
 
     public RecipeStepsFragment() {}
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        RecyclerView stepsRecyclerView;
-        StepsAdapter stepsAdapter;
-
-        RecyclerView ingredientsRecyclerView;
-        IngredientsAdapter ingredientsAdapter;
 
         View rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false); // Inflate Layout
         TextView recipeName = rootView.findViewById(R.id.recipeName); // Find TextView id
@@ -51,37 +50,11 @@ public class RecipeStepsFragment extends Fragment {
 
             recipeName.setText(recipeNameData);
 
-                //Steps Recycler View
+            //Steps Recycler View
+            stepsRv(rootView, recipeStepsDataArray);
 
-            // Get a reference to recyclerView
-            stepsRecyclerView = rootView.findViewById(R.id.rv_recipe_steps);
-            stepsRecyclerView.setHasFixedSize(true);
-
-            // Set layoutManger
-            stepsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-            //Create adaptor and send the data to it
-            stepsAdapter = new StepsAdapter(recipeStepsDataArray);
-
-            // Set adapter to the recycler view
-            stepsRecyclerView.setAdapter(stepsAdapter);
-
-
-
-                //Ingredients Recycler View
-
-            // Get a reference to recyclerView
-            ingredientsRecyclerView = rootView.findViewById(R.id.rv_recipe_ingredients);
-            ingredientsRecyclerView.setHasFixedSize(true);
-
-            // Set layoutManger
-            ingredientsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-            //Create adaptor and send the data to it
-            ingredientsAdapter = new IngredientsAdapter(recipeIngredientsDataArray);
-
-            // Set adapter to the recycler view
-            ingredientsRecyclerView.setAdapter(ingredientsAdapter);
+            //Ingredients Recycler View
+            ingredientsRv(rootView, recipeIngredientsDataArray);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -89,6 +62,44 @@ public class RecipeStepsFragment extends Fragment {
 
         return rootView; // return rootView
 
+    }
+
+
+    //Steps Recycler View
+    public void stepsRv(View rootView, JSONArray recipeStepsDataArray) {
+        //Steps Recycler View
+
+        // Get a reference to recyclerView
+        stepsRecyclerView = rootView.findViewById(R.id.rv_recipe_steps);
+        stepsRecyclerView.setHasFixedSize(true);
+
+        // Set layoutManger
+        stepsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        //Create adaptor and send the data to it
+        stepsAdapter = new StepsAdapter(recipeStepsDataArray);
+
+        // Set adapter to the recycler view
+        stepsRecyclerView.setAdapter(stepsAdapter);
+
+    }
+
+    //Ingredients Recycler View
+    public void ingredientsRv(View rootView, JSONArray recipeIngredientsDataArray) {
+        //Ingredients Recycler View
+
+        // Get a reference to recyclerView
+        ingredientsRecyclerView = rootView.findViewById(R.id.rv_recipe_ingredients);
+        ingredientsRecyclerView.setHasFixedSize(true);
+
+        // Set layoutManger
+        ingredientsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        //Create adaptor and send the data to it
+        ingredientsAdapter = new IngredientsAdapter(recipeIngredientsDataArray);
+
+        // Set adapter to the recycler view
+        ingredientsRecyclerView.setAdapter(ingredientsAdapter);
     }
 
 

@@ -57,7 +57,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.ViewHolder> 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            stepName = itemView.findViewById(R.id.recipe_name_textView);
+            stepName = itemView.findViewById(R.id.steps_name_textView);
 
         }
 
