@@ -10,14 +10,14 @@ import android.util.Log;
 
 import com.example.bakingapp.R;
 
-public class RecipeStepsAndDetailActivity extends AppCompatActivity {
+public class StepsAndDetailActivity extends AppCompatActivity {
 
     private static FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_steps_and_detail);
+        setContentView(R.layout.activity_steps_and_detail);
 
         //Get Fragment Manager as this Activity will need it for multiple fragments.
         fragmentManager = getSupportFragmentManager();
@@ -45,7 +45,7 @@ public class RecipeStepsAndDetailActivity extends AppCompatActivity {
     private void inflateRecipeStepsFragment(String recipeName, String recipeSteps, String recipeIngredients) {
 
 
-        Fragment recipeStepsFragment = new RecipeStepsFragment(); // Get Fragment Instance
+        Fragment stepsFragment = new StepsFragment(); // Get Fragment Instance
         Bundle data = new Bundle(); // Use bundle to pass data
 
         // Put data into bundle
@@ -53,12 +53,12 @@ public class RecipeStepsAndDetailActivity extends AppCompatActivity {
         data.putString("recipeSteps", recipeSteps);
         data.putString("recipeIngredients", recipeIngredients);
 
-        recipeStepsFragment.setArguments(data); // Set argument bundle to our fragment
+        stepsFragment.setArguments(data); // Set argument bundle to our fragment
 
         // Begin the transaction
         fragmentManager.beginTransaction()
         // Replace the contents of the container with the new fragment
-        .add(R.id.recipe_steps_fragment, recipeStepsFragment)
+        .add(R.id.recipe_steps_fragment, stepsFragment)
         // Complete the changes added above
         .commit();
 

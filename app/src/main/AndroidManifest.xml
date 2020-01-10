@@ -12,8 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".details.RecipeDetailActivity"></activity>
-        <activity android:name=".steps.RecipeStepsAndDetailActivity" />
+        <activity android:name=".details.DetailActivity"></activity>
+        <activity android:name=".steps.StepsAndDetailActivity" />
         <activity android:name=".main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

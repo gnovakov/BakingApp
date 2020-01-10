@@ -7,22 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bakingapp.R;
-import com.example.bakingapp.details.RecipeDetailActivity;
+import com.example.bakingapp.details.DetailActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
-public class RecipeStepsFragment extends Fragment implements StepsAdapter.OnStepClickListener {
+public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickListener {
 
     RecyclerView stepsRecyclerView;
     StepsAdapter stepsAdapter;
@@ -34,14 +32,16 @@ public class RecipeStepsFragment extends Fragment implements StepsAdapter.OnStep
     private String recipeStepsData;
     private String recipeIngredientsData;
 
+    private JSONArray recipeStepsDataArray;
 
-    public RecipeStepsFragment() {}
+
+    public StepsFragment() {}
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false); // Inflate Layout
+        View rootView = inflater.inflate(R.layout.fragment_steps, container, false); // Inflate Layout
         TextView recipeName = rootView.findViewById(R.id.recipeName); // Find TextView id
 
         // Get Argument that was passed from activity
@@ -50,7 +50,7 @@ public class RecipeStepsFragment extends Fragment implements StepsAdapter.OnStep
          recipeIngredientsData = getArguments().getString("recipeIngredients");
 
         try {
-            JSONArray recipeStepsDataArray = new JSONArray(recipeStepsData);
+            recipeStepsDataArray = new JSONArray(recipeStepsData);
             JSONArray recipeIngredientsDataArray = new JSONArray(recipeIngredientsData);
 
 
@@ -85,7 +85,7 @@ public class RecipeStepsFragment extends Fragment implements StepsAdapter.OnStep
         stepsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //Create adaptor and send the data to it
-        stepsAdapter = new StepsAdapter(recipeStepsDataArray, RecipeStepsFragment.this);
+        stepsAdapter = new StepsAdapter(recipeStepsDataArray, StepsFragment.this);
 
         // Set adapter to the recycler view
         stepsRecyclerView.setAdapter(stepsAdapter);
@@ -112,11 +112,18 @@ public class RecipeStepsFragment extends Fragment implements StepsAdapter.OnStep
 
     @Override
     public void onStepClick(int clickStepPosition) {
-        //Toast.makeText(getContext(), "Position clicked = " + clickStepPosition, Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(getContext(), RecipeDetailActivity.class);
+        Intent intent = new Intent(getContext(), DetailActivity.class);
 
-        intent.putExtra("recipeSteps", recipeStepsData); // need to send data that coresponds to the position of the list that was clicked not all the data
+        try {
+            intent.putExtra("id", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("id"));
+            intent.putExtra("shortDescription", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("shortDescription"));
+            intent.putExtra("description", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("description"));
+            intent.putExtra("videoURL", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("videoURL"));
+            intent.putExtra("thumbnailURL", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("thumbnailURL"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         //Start the Activity the Intent is set to when an item is clicked, all data added with intent.putExtra will be sent to that Activity.
         startActivity(intent);
