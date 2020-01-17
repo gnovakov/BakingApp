@@ -26,11 +26,17 @@ import com.google.android.exoplayer2.util.Util;
 
 public class DetailFragment extends Fragment {
 
+    private View rootView;
     private String id;
     private String shortDescription;
     private String description;
     private String videoURL;
     private String thumbnailURL;
+
+    private SimpleExoPlayer absPlayerInternal;
+    private PlayerView pvMain;
+
+    private String CONTENT_URL;
 
 
 
@@ -43,12 +49,8 @@ public class DetailFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        SimpleExoPlayer absPlayerInternal;
-        PlayerView pvMain;
+        rootView = inflater.inflate(R.layout.fragment_details, container, false);
 
-        String CONTENT_URL;
-
-        View rootView = inflater.inflate(R.layout.fragment_details, container, false);
         TextView stepTitle = rootView.findViewById(R.id.stepTitle); // Find TextView id
         TextView stepDescription = rootView.findViewById(R.id.stepDescription); // Find TextView id
 
@@ -59,6 +61,7 @@ public class DetailFragment extends Fragment {
         videoURL = getArguments().getString("videoURL");
         thumbnailURL = getArguments().getString("thumbnailURL");
 
+        // Set Title
         if ("0".equals(id)) {
             stepTitle.setText(shortDescription);
         } else {
@@ -72,16 +75,50 @@ public class DetailFragment extends Fragment {
             CONTENT_URL = videoURL;
         }
 
+        // Set Description
         stepDescription.setText(description);
 
-        //Implement ExoPlayer
-        int appNameStringRes = R.string.app_name;
-
-        pvMain = findViewById(R.id.pv_main); // creating player view
-
-
+        //Initialise Video Player
+        initialisePlayer();
 
         return rootView;
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        //Log.d( "TEST", "onStop: " + "STOP");
+        releasePlayer();
+    }
+
+    //Implement ExoPlayer
+    private void initialisePlayer() {
+
+        int appNameStringRes = R.string.app_name;
+
+        pvMain = rootView.findViewById(R.id.pv_main); // creating player view
+
+        TrackSelector trackSelectorDef = new DefaultTrackSelector();
+        absPlayerInternal = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelectorDef); //creating a player instance
+
+        String userAgent = Util.getUserAgent(getContext(), getContext().getString(appNameStringRes));
+        DefaultDataSourceFactory defdataSourceFactory = new DefaultDataSourceFactory(getContext(),userAgent);
+        Uri uriOfContentUrl = Uri.parse(CONTENT_URL);
+        MediaSource mediaSource = new ProgressiveMediaSource.Factory(defdataSourceFactory).createMediaSource(uriOfContentUrl);  // creating a media source
+
+        absPlayerInternal.prepare(mediaSource);
+        absPlayerInternal.setPlayWhenReady(true); // start loading video and play it at the moment a chunk of it is available offline
+
+        pvMain.setPlayer(absPlayerInternal); // attach surface to the view
+    }
+
+    // Release Player when we leave the page
+    private void releasePlayer() {
+        if (absPlayerInternal != null) {
+            absPlayerInternal.release();
+        }
+    }
+
 
 }
