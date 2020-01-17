@@ -88,8 +88,23 @@ public class DetailFragment extends Fragment {
     public void onStop() {
         super.onStop();
 
-        //Log.d( "TEST", "onStop: " + "STOP");
+        Log.d( "TEST", "onStop: " + "STOP");
         releasePlayer();
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d( "TEST", "onPause: " + "PAUSE");
+        pausePlayer(absPlayerInternal);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d( "TEST", "onResume: " + "RESUME");
+        playPlayer(absPlayerInternal);
     }
 
     //Implement ExoPlayer
@@ -117,6 +132,18 @@ public class DetailFragment extends Fragment {
     private void releasePlayer() {
         if (absPlayerInternal != null) {
             absPlayerInternal.release();
+        }
+    }
+
+    private void playPlayer(SimpleExoPlayer player) {
+        if (player != null) {
+            player.setPlayWhenReady(true);
+        }
+    }
+
+    private void pausePlayer(SimpleExoPlayer player) {
+        if (player != null) {
+            player.setPlayWhenReady(false);
         }
     }
 
