@@ -53,6 +53,7 @@ public class DetailFragment extends Fragment {
 
         TextView stepTitle = rootView.findViewById(R.id.stepTitle); // Find TextView id
         TextView stepDescription = rootView.findViewById(R.id.stepDescription); // Find TextView id
+        pvMain = rootView.findViewById(R.id.pv_main); // creating player view
 
         // Get Argument that was passed from activity
         id = getArguments().getString("id");
@@ -78,8 +79,15 @@ public class DetailFragment extends Fragment {
         // Set Description
         stepDescription.setText(description);
 
-        //Initialise Video Player
-        initialisePlayer();
+
+        //Initialise Video Player if there is a video URL available, otherwise remove the PlayerView Element
+        if (CONTENT_URL.length() == 0) {
+            pvMain.setVisibility(PlayerView.GONE);
+        } else {
+            initialisePlayer();
+        }
+
+        Log.d( "TEST", "CONTENT_URL: " + CONTENT_URL);
 
         return rootView;
     }
@@ -89,30 +97,25 @@ public class DetailFragment extends Fragment {
         super.onStop();
 
         Log.d( "TEST", "onStop: " + "STOP");
-        releasePlayer();
-    }
 
+        //stopPlayer();
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d( "TEST", "onPause: " + "PAUSE");
         pausePlayer(absPlayerInternal);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        Log.d( "TEST", "onResume: " + "RESUME");
-        playPlayer(absPlayerInternal);
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d( "TEST", "onDestroyView: " + "DESTROY");
+        stopPlayer();
     }
+
+    // Player Methods //
 
     //Implement ExoPlayer
     private void initialisePlayer() {
 
         int appNameStringRes = R.string.app_name;
-
-        pvMain = rootView.findViewById(R.id.pv_main); // creating player view
 
         TrackSelector trackSelectorDef = new DefaultTrackSelector();
         absPlayerInternal = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelectorDef); //creating a player instance
@@ -128,8 +131,9 @@ public class DetailFragment extends Fragment {
         pvMain.setPlayer(absPlayerInternal); // attach surface to the view
     }
 
-    // Release Player when we leave the page
-    private void releasePlayer() {
+
+    // Stop & Release Player when we leave the page
+    private void stopPlayer() {
         if (absPlayerInternal != null) {
             absPlayerInternal.release();
         }
