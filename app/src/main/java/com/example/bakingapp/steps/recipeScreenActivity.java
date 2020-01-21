@@ -10,14 +10,15 @@ import android.util.Log;
 
 import com.example.bakingapp.R;
 
-public class StepsAndDetailActivity extends AppCompatActivity {
+public class recipeScreenActivity extends AppCompatActivity {
 
     private static FragmentManager fragmentManager;
+    private boolean mTwoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_steps_and_detail);
+        setContentView(R.layout.activity_recipe_screen);
 
         //Get Fragment Manager as this Activity will need it for multiple fragments.
         fragmentManager = getSupportFragmentManager();
@@ -31,11 +32,27 @@ public class StepsAndDetailActivity extends AppCompatActivity {
             String recipeSteps = recipeIntent.getStringExtra("recipeSteps");
             String recipeIngredients = recipeIntent.getStringExtra("recipeIngredients");
 
-
             Log.d( "TEST", "onCreate: " + "ingredients: " + recipeIngredients);
 
-            //Inflate Recipe Steps Fragment whilst passing data
-            inflateRecipeStepsFragment(recipeName, recipeSteps, recipeIngredients);
+
+            if (findViewById(R.id.recipe_detail_fragment) != null) {
+                mTwoPane = true;
+
+                Log.d( "TEST", "mTwoPane True: " + mTwoPane);
+
+                //Inflate Recipe Steps Fragment whilst passing data
+                //inflateRecipeStepsFragment(recipeName, recipeSteps, recipeIngredients);
+
+                //Inflate Details Fragment
+                inflateRecipeDetailFragment(recipeName, recipeSteps, recipeIngredients);
+
+            } else {
+                mTwoPane = false;
+                Log.d( "TEST", "mTwoPane False: " + mTwoPane);
+
+                //Inflate Recipe Steps Fragment whilst passing data
+                inflateRecipeStepsFragment(recipeName, recipeSteps, recipeIngredients);
+            }
         }
 
 
@@ -58,14 +75,32 @@ public class StepsAndDetailActivity extends AppCompatActivity {
         // Begin the transaction
         fragmentManager.beginTransaction()
         // Replace the contents of the container with the new fragment
-        .add(R.id.recipe_steps_fragment, stepsFragment)
+        .add(R.id.recipe_detail_fragment, stepsFragment)
         // Complete the changes added above
         .commit();
 
     }
 
 
-    private void inflateRecipeDetailFragment() {
+    private void inflateRecipeDetailFragment(String recipeName, String recipeSteps, String recipeIngredients) {
+
+
+        Fragment stepsFragment = new StepsFragment(); // Get Fragment Instance
+        Bundle data = new Bundle(); // Use bundle to pass data
+
+        // Put data into bundle
+        data.putString("recipeName", recipeName);
+        data.putString("recipeSteps", recipeSteps);
+        data.putString("recipeIngredients", recipeIngredients);
+
+        stepsFragment.setArguments(data); // Set argument bundle to our fragment
+
+        // Begin the transaction
+        fragmentManager.beginTransaction()
+                // Replace the contents of the container with the new fragment
+                .add(R.id.recipe_detail_fragment, stepsFragment)
+                // Complete the changes added above
+                .commit();
 
     }
 

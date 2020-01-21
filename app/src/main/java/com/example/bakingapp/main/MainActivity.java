@@ -9,7 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.bakingapp.steps.StepsAndDetailActivity;
+import com.example.bakingapp.steps.recipeScreenActivity;
 import com.example.bakingapp.R;
 import com.example.bakingapp.utilities.NetworkUtils;
 
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements  RecipesAdapter.O
         }
 
         //Set the intent to the Activity the data is to be sent to
-        Intent intent = new Intent(this, StepsAndDetailActivity.class);
+        Intent intent = new Intent(this, recipeScreenActivity.class);
 
         try {
 

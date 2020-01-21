@@ -70,8 +70,6 @@ public class DetailActivity extends AppCompatActivity {
                 // Complete the changes added above
                 .commit();
 
-
-
     }
 
 }
