@@ -35,13 +35,13 @@ public class recipeScreenActivity extends AppCompatActivity {
             Log.d( "TEST", "onCreate: " + "ingredients: " + recipeIngredients);
 
 
-            if (findViewById(R.id.recipe_detail_fragment) != null) {
+            if (findViewById(R.id.recipe_steps_fragment) != null) {
                 mTwoPane = true;
 
                 Log.d( "TEST", "mTwoPane True: " + mTwoPane);
 
                 //Inflate Recipe Steps Fragment whilst passing data
-                //inflateRecipeStepsFragment(recipeName, recipeSteps, recipeIngredients);
+                inflateRecipeStepsFragment(recipeName, recipeSteps, recipeIngredients);
 
                 //Inflate Details Fragment
                 inflateRecipeDetailFragment(recipeName, recipeSteps, recipeIngredients);
@@ -65,6 +65,8 @@ public class recipeScreenActivity extends AppCompatActivity {
         Fragment stepsFragment = new StepsFragment(); // Get Fragment Instance
         Bundle data = new Bundle(); // Use bundle to pass data
 
+        Log.d( "TEST", "STEPS");
+
         // Put data into bundle
         data.putString("recipeName", recipeName);
         data.putString("recipeSteps", recipeSteps);
@@ -75,7 +77,7 @@ public class recipeScreenActivity extends AppCompatActivity {
         // Begin the transaction
         fragmentManager.beginTransaction()
         // Replace the contents of the container with the new fragment
-        .add(R.id.recipe_detail_fragment, stepsFragment)
+        .add(R.id.recipe_steps_fragment, stepsFragment)
         // Complete the changes added above
         .commit();
 
@@ -88,6 +90,8 @@ public class recipeScreenActivity extends AppCompatActivity {
         Fragment stepsFragment = new StepsFragment(); // Get Fragment Instance
         Bundle data = new Bundle(); // Use bundle to pass data
 
+        Log.d( "TEST", "DETAILS");
+
         // Put data into bundle
         data.putString("recipeName", recipeName);
         data.putString("recipeSteps", recipeSteps);
@@ -98,7 +102,7 @@ public class recipeScreenActivity extends AppCompatActivity {
         // Begin the transaction
         fragmentManager.beginTransaction()
                 // Replace the contents of the container with the new fragment
-                .add(R.id.recipe_detail_fragment, stepsFragment)
+                .add(R.id.recipe_details_fragment, stepsFragment)
                 // Complete the changes added above
                 .commit();
 

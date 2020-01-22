@@ -8,15 +8,15 @@
     android:orientation="horizontal">
 
     <FrameLayout
-        android:id="@+id/recipe_detail_fragment"
-        android:layout_width="match_parent"
+        android:id="@+id/recipe_steps_fragment"
+        android:layout_width="400dp"
         android:layout_height="match_parent">
     </FrameLayout>
 
     <View style="@style/Divider"/>
 
     <FrameLayout
-        android:id="@+id/recipe_detail_fragment"
+        android:id="@+id/recipe_details_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </FrameLayout>

@@ -66,7 +66,7 @@ public class DetailActivity extends AppCompatActivity {
         // Begin the transaction
         fragmentManager.beginTransaction()
                 // Replace the contents of the container with the new fragment
-                .add(R.id.recipe_detail_fragment, detailFragment)
+                .add(R.id.recipe_steps_fragment, detailFragment)
                 // Complete the changes added above
                 .commit();
 
