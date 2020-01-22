@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bakingapp.R;
 import com.example.bakingapp.details.DetailActivity;
+import com.example.bakingapp.details.DetailFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,8 +32,10 @@ public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickL
     private String recipeNameData;
     private String recipeStepsData;
     private String recipeIngredientsData;
+    private boolean mTwoPane;
 
     private JSONArray recipeStepsDataArray;
+    private JSONArray recipeIngredientsDataArray;
 
 
     public StepsFragment() {}
@@ -48,15 +51,15 @@ public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickL
          recipeNameData = getArguments().getString("recipeName");
          recipeStepsData = getArguments().getString("recipeSteps");
          recipeIngredientsData = getArguments().getString("recipeIngredients");
+         mTwoPane = getArguments().getBoolean("TWO_PANE");
 
         try {
             recipeStepsDataArray = new JSONArray(recipeStepsData);
-            JSONArray recipeIngredientsDataArray = new JSONArray(recipeIngredientsData);
-
+            recipeIngredientsDataArray = new JSONArray(recipeIngredientsData);
 
             Log.d( "TEST", "TEST: " + "recipeIngredients: " + recipeIngredientsData);
 
-            recipeName.setText(recipeNameData);
+            recipeName.setText(recipeNameData); // Set the recipe name
 
             //Steps Recycler View
             stepsRv(rootView, recipeStepsDataArray);
@@ -113,21 +116,58 @@ public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickL
     @Override
     public void onStepClick(int clickStepPosition) {
 
-        Intent intent = new Intent(getContext(), DetailActivity.class);
+        if(mTwoPane) {
 
-        try {
-            intent.putExtra("id", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("id"));
-            intent.putExtra("shortDescription", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("shortDescription"));
-            intent.putExtra("description", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("description"));
-            intent.putExtra("videoURL", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("videoURL"));
-            intent.putExtra("thumbnailURL", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("thumbnailURL"));
-        } catch (JSONException e) {
-            e.printStackTrace();
+            // Create a bundle to pass the data
+            Bundle detailsData = new Bundle(); // Use bundle to pass data
+
+            Log.d( "TEST", "STEPS ONE");
+
+            // Put data into bundle
+            try {
+                detailsData.putString("id", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("id"));
+                detailsData.putString("shortDescription", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("shortDescription"));
+                detailsData.putString("description", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("description"));
+                detailsData.putString("videoURL", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("videoURL"));
+                detailsData.putString("thumbnailURL", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("thumbnailURL"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            if (recipeStepsDataArray != null) {
+
+                Fragment detailFragment = new DetailFragment(); // Get Fragment Instance
+
+                detailFragment.setArguments(detailsData); // Set argument bundle to our fragment
+
+                // Begin the transaction
+                getFragmentManager().beginTransaction()
+                        // Replace the contents of the container with the new fragment
+                        .replace(R.id.recipe_details_fragment, detailFragment)
+                        // Complete the changes added above
+                        .commit();
+            }
+
+
+        } else {
+
+            Intent intent = new Intent(getContext(), DetailActivity.class);
+
+            try {
+                intent.putExtra("id", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("id"));
+                intent.putExtra("shortDescription", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("shortDescription"));
+                intent.putExtra("description", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("description"));
+                intent.putExtra("videoURL", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("videoURL"));
+                intent.putExtra("thumbnailURL", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("thumbnailURL"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            //Start the Activity the Intent is set to when an item is clicked, all data added with intent.putExtra will be sent to that Activity.
+            startActivity(intent);
+
         }
-
-        //Start the Activity the Intent is set to when an item is clicked, all data added with intent.putExtra will be sent to that Activity.
-        startActivity(intent);
-
     }
 
 }

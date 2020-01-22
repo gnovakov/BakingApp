@@ -32,14 +32,10 @@ public class DetailFragment extends Fragment {
     private String description;
     private String videoURL;
     private String thumbnailURL;
-
     private SimpleExoPlayer absPlayerInternal;
     private PlayerView pvMain;
 
     private String CONTENT_URL;
-
-
-
 
 
     public DetailFragment() {
@@ -61,6 +57,7 @@ public class DetailFragment extends Fragment {
         description = getArguments().getString("description");
         videoURL = getArguments().getString("videoURL");
         thumbnailURL = getArguments().getString("thumbnailURL");
+
 
         // Set Title
         if ("0".equals(id)) {
