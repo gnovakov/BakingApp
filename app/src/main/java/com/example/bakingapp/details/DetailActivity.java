@@ -38,7 +38,7 @@ public class DetailActivity extends AppCompatActivity {
 
             Log.d( "TEST", "onCreate: " + "ID: " + id);
 
-            //Inflate Recipe Steps Fragment whilst passing data
+            //Inflate Recipe Step Fragment whilst passing data
             inflateRecipeDetailFragment( id, shortDescription, description, videoURL, thumbnailURL);
         }
     }

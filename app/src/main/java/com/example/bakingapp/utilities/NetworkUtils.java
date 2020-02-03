@@ -3,12 +3,22 @@ package com.example.bakingapp.utilities;
 import android.net.Uri;
 import android.util.Log;
 
+import com.example.bakingapp.api.JsonRecipesApi;
+import com.example.bakingapp.models.Recipe;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.Scanner;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkUtils {
 
@@ -53,5 +63,7 @@ public class NetworkUtils {
             urlConnection.disconnect();
         }
     }
+
+
 
 }

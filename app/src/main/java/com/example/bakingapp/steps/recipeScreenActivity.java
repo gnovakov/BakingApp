@@ -45,7 +45,7 @@ public class recipeScreenActivity extends AppCompatActivity {
         }
 
 
-        //Inflate Recipe Steps Fragment whilst passing data
+        //Inflate Recipe Step Fragment whilst passing data
         if (savedInstanceState == null) {
 
             inflateRecipeStepsFragment();

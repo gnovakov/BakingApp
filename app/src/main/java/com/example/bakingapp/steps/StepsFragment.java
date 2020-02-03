@@ -61,10 +61,10 @@ public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickL
 
             recipeName.setText(recipeNameData); // Set the recipe name
 
-            //Steps Recycler View
+            //Step Recycler View
             stepsRv(rootView, recipeStepsDataArray);
 
-            //Ingredients Recycler View
+            //Ingredient Recycler View
             ingredientsRv(rootView, recipeIngredientsDataArray);
 
         } catch (JSONException e) {
@@ -76,9 +76,9 @@ public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickL
     }
 
 
-    //Steps Recycler View
+    //Step Recycler View
     public void stepsRv(View rootView, JSONArray recipeStepsDataArray) {
-        //Steps Recycler View
+        //Step Recycler View
 
         // Get a reference to recyclerView
         stepsRecyclerView = rootView.findViewById(R.id.rv_recipe_steps);
@@ -95,9 +95,9 @@ public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickL
 
     }
 
-    //Ingredients Recycler View
+    //Ingredient Recycler View
     public void ingredientsRv(View rootView, JSONArray recipeIngredientsDataArray) {
-        //Ingredients Recycler View
+        //Ingredient Recycler View
 
         // Get a reference to recyclerView
         ingredientsRecyclerView = rootView.findViewById(R.id.rv_recipe_ingredients);

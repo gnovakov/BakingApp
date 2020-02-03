@@ -8,7 +8,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.bakingapp.api.JsonRecipesApi;
+import com.example.bakingapp.models.Recipe;
 import com.example.bakingapp.steps.recipeScreenActivity;
 import com.example.bakingapp.R;
 import com.example.bakingapp.utilities.NetworkUtils;
@@ -18,15 +21,22 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements  RecipesAdapter.OnRecipeClickListener{
 
 
     private RecyclerView recipesRecyclerView;
 
-    private RecipesAdapter recipesAdapter;
+    private List<Recipe> recipes;
 
-    private JSONArray recipesArray;
+    private static final String BASE_URL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,88 +48,56 @@ public class MainActivity extends AppCompatActivity implements  RecipesAdapter.O
         recipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //Runs the Query to Fetch Results
-        makeSortQuery();
+        getRecipesRetro();
     }
 
     @Override
     public void onRecipeClick(int clickRecipePosition) {
 
-        try {
-            Log.i("ON RECIPE CLICK", "onRecipeClick: clicked " + recipesArray.getJSONObject(clickRecipePosition).getString("name"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        Log.i("ON RECIPE CLICK", "onRecipeClick: clicked " + recipes.get(clickRecipePosition).getName());
 
         //Set the intent to the Activity the data is to be sent to
         Intent intent = new Intent(this, recipeScreenActivity.class);
 
-        try {
+        intent.putExtra("recipeName", recipes.get(clickRecipePosition).getName());
+        //intent.putExtra("recipeIngredients", recipes.get(clickRecipePosition).getIngredients());
+        //intent.putExtra("recipeSteps", recipesArray.getJSONObject(clickRecipePosition).getString("steps"));
 
-            intent.putExtra("recipeName", recipesArray.getJSONObject(clickRecipePosition).getString("name"));
-            intent.putExtra("recipeIngredients", recipesArray.getJSONObject(clickRecipePosition).getString("ingredients"));
-            intent.putExtra("recipeSteps", recipesArray.getJSONObject(clickRecipePosition).getString("steps"));
-
-            Log.i("ON RECIPE CLICK", "onRecipeClick: INTENT " + recipesArray.getJSONObject(clickRecipePosition).getString("ingredients"));
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        //Log.i("ON RECIPE CLICK", "onRecipeClick: INTENT " + recipesArray.getJSONObject(clickRecipePosition).getString("ingredients"));
 
         //Start the Activity the Intent is set to when an item is clicked, all data added with intent.putExtra will be sent to that Activity.
         startActivity(intent);
 
     }
 
-    // Build the URL
-    void makeSortQuery() {
-        URL url = NetworkUtils.buildUrl();
+    public void getRecipesRetro() {
 
-        //Connect to the API using the URL
-        new GetMoviesTask().execute(url);
-    }
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        JsonRecipesApi jsonRecipesApi = retrofit.create(JsonRecipesApi.class);
 
+        Call<List<Recipe>> call = jsonRecipesApi.getRecipes();
 
-    // AsyncTask for building out the URL
-    public class GetMoviesTask extends AsyncTask<URL, Void, String> {
+        call.enqueue(new Callback<List<Recipe>>() {
+            @Override
+            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
 
-        @Override
-        protected String doInBackground(URL... urls) {
-            URL myUrl = urls[0];
-            String result = null;
-            try {
-                result = NetworkUtils.getResponseFromHttpUrl(myUrl);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            // Data Returned from API as a String
-            return result;
+                recipes = response.body();
 
-        }
+                //recipesRecyclerView.setAdapter(new RecipesAdapter(MainActivity.this, recipes, MainActivity.this));
 
-        @Override
-        protected void onPostExecute(String result) {
-
-            Log.i("URL BEFORE PARSING", "URL RESULTS " + recipesArray);
-
-            try {
-                JSONArray resultsArray = new JSONArray(result);
-                recipesArray = resultsArray;
-
-                recipesAdapter = new RecipesAdapter(MainActivity.this, recipesArray, MainActivity.this);
-
-
-                recipesRecyclerView.setAdapter(recipesAdapter);
-
-                Log.i("URL AFTER PARSING", "URL RESULTS " + recipesArray);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
 
-        }
-    }
+            @Override
+            public void onFailure(Call<List<Recipe>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "error :(" + recipes, Toast.LENGTH_SHORT).show();
+            }
+        });
 
+    }
 
 
 }

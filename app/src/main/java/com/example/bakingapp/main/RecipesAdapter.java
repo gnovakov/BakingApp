@@ -10,15 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bakingapp.R;
+import com.example.bakingapp.models.Recipe;
 
-import org.json.JSONArray;
 import org.json.JSONException;
+
+import java.util.List;
 
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHolder> {
 
 
     private Context ctx;
-    private JSONArray mRecipesArray;
+    private List<Recipe> mRecipesArray;
 
 
     private OnRecipeClickListener mOnRecipeClickListener;
@@ -28,7 +30,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
     }
 
-    public RecipesAdapter(Context ct,JSONArray recipesArray, OnRecipeClickListener listener) {
+    public RecipesAdapter(Context ct, List<Recipe> recipesArray, OnRecipeClickListener listener) {
         ctx = ct;
         mRecipesArray = recipesArray;
         mOnRecipeClickListener = listener;
@@ -46,11 +48,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        try {
-            holder.recipeName.setText(mRecipesArray.getJSONObject(position).getString("name"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        holder.recipeName.setText(mRecipesArray.get(position).getName());
 
     }
 
@@ -58,7 +56,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
     @Override
     public int getItemCount() {
 
-        return mRecipesArray.length();
+        return mRecipesArray.size();
 
     }
 
