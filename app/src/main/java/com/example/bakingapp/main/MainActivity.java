@@ -87,13 +87,16 @@ public class MainActivity extends AppCompatActivity implements  RecipesAdapter.O
 
                 recipes = response.body();
 
-                //recipesRecyclerView.setAdapter(new RecipesAdapter(MainActivity.this, recipes, MainActivity.this));
+                recipesRecyclerView.setAdapter(new RecipesAdapter(MainActivity.this, recipes, MainActivity.this));
 
             }
 
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "error :(" + recipes, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "error :(", Toast.LENGTH_SHORT).show();
+
+                Log.d( "TEST", "mTwoPane False: " + t);
+
             }
         });
 

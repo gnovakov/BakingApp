@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class Ingredient {
 
-    private Integer quantity;
+    private float quantity;
     private String measure;
     private String ingredient;
 
-    public Integer getQuantity() {
+    public float getQuantity() {
         return quantity;
     }
 
