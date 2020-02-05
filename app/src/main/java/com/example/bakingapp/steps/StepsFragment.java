@@ -49,25 +49,25 @@ public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickL
 
         // Get Argument that was passed from activity
          recipeNameData = getArguments().getString("recipeName");
-         recipeStepsData = getArguments().getString("recipeSteps");
-         recipeIngredientsData = getArguments().getString("recipeIngredients");
+         //recipeStepsData = getArguments().getString("recipeSteps");
+         //recipeIngredientsData = getArguments().getString("recipeIngredients");
          mTwoPane = getArguments().getBoolean("TWO_PANE");
 
         try {
-            recipeStepsDataArray = new JSONArray(recipeStepsData);
-            recipeIngredientsDataArray = new JSONArray(recipeIngredientsData);
+            //recipeStepsDataArray = new JSONArray(recipeStepsData);
+            //recipeIngredientsDataArray = new JSONArray(recipeIngredientsData);
 
             Log.d( "TEST", "TEST: " + "recipeIngredients: " + recipeIngredientsData);
 
             recipeName.setText(recipeNameData); // Set the recipe name
 
             //Step Recycler View
-            stepsRv(rootView, recipeStepsDataArray);
+            //stepsRv(rootView, recipeStepsDataArray);
 
             //Ingredient Recycler View
-            ingredientsRv(rootView, recipeIngredientsDataArray);
+            //ingredientsRv(rootView, recipeIngredientsDataArray);
 
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -126,10 +126,10 @@ public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickL
             // Put data into bundle
             try {
                 detailsData.putString("id", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("id"));
-                detailsData.putString("shortDescription", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("shortDescription"));
-                detailsData.putString("description", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("description"));
-                detailsData.putString("videoURL", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("videoURL"));
-                detailsData.putString("thumbnailURL", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("thumbnailURL"));
+                //detailsData.putString("shortDescription", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("shortDescription"));
+                //detailsData.putString("description", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("description"));
+                //detailsData.putString("videoURL", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("videoURL"));
+                //detailsData.putString("thumbnailURL", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("thumbnailURL"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
