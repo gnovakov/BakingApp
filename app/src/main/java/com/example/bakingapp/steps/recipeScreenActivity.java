@@ -43,6 +43,7 @@ public class recipeScreenActivity extends AppCompatActivity {
         Intent recipeIntent = getIntent();
 
         if (recipeIntent.hasExtra("recipeName")){
+
             recipeName = recipeIntent.getStringExtra("recipeName");
             recipeIngredients = recipeIntent.getParcelableArrayListExtra("recipeIngredients");
             //recipeSteps = recipeIntent.getStringExtra("recipeSteps");

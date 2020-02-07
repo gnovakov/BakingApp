@@ -16,6 +16,7 @@ import com.example.bakingapp.models.Ingredient;
 import com.example.bakingapp.models.Recipe;
 import com.example.bakingapp.steps.recipeScreenActivity;
 import com.example.bakingapp.R;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,15 +58,15 @@ public class MainActivity extends AppCompatActivity implements  RecipesAdapter.O
     public void onRecipeClick(int clickRecipePosition) {
 
         Log.d("ON RECIPE CLICK", "onRecipeClick: clicked Name: " + recipes.get(clickRecipePosition).getName());
+        Log.d("ON RECIPE CLICK", "onRecipeClick: clicked Name: " + recipes.get(clickRecipePosition).getIngredients());
 
         //Set the intent to the Activity the data is to be sent to
         Intent intent = new Intent(this, recipeScreenActivity.class);
 
+
         intent.putExtra("recipeName", recipes.get(clickRecipePosition).getName());
         intent.putParcelableArrayListExtra("recipeIngredients", recipes.get(clickRecipePosition).getIngredients());
-        //intent.putExtra("recipeSteps", recipes.get(clickRecipePosition).getSteps());
 
-        //Log.i("ON RECIPE CLICK", "onRecipeClick: INTENT " + recipesArray.getJSONObject(clickRecipePosition).getString("ingredients"));
 
         //Start the Activity the Intent is set to when an item is clicked, all data added with intent.putExtra will be sent to that Activity.
         startActivity(intent);

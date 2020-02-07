@@ -3,7 +3,7 @@ package com.example.bakingapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Ingredient implements Parcelable {
+public class Ingredient implements Parcelable{
 
     private float quantity;
     private String measure;
@@ -20,6 +20,7 @@ public class Ingredient implements Parcelable {
         measure = in.readString();
         ingredient = in.readString();
     }
+
 
     public static final Creator<Ingredient> CREATOR = new Creator<Ingredient>() {
         @Override
@@ -56,7 +57,6 @@ public class Ingredient implements Parcelable {
     public void setIngredient(String ingredient) {
         this.ingredient = ingredient;
     }
-
 
     @Override
     public int describeContents() {
