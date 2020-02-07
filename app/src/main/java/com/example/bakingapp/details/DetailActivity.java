@@ -9,8 +9,11 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.bakingapp.R;
+import com.example.bakingapp.steps.StepsAdapter;
 
 public class DetailActivity extends AppCompatActivity {
+
+    private static final String TAG = DetailActivity.class.getSimpleName();
 
     private static FragmentManager fragmentManager;
 
@@ -45,9 +48,9 @@ public class DetailActivity extends AppCompatActivity {
 
     private void inflateRecipeDetailFragment(String id, String shortDescription, String description, String videoURL, String thumbnailURL) {
 
-        Log.d( "TEST", "Recipe Detail Activity: " + description);
-        Log.d( "TEST", "Recipe Detail Activity: " + videoURL);
-        Log.d( "TEST", "Recipe Detail Activity: " + thumbnailURL);
+        Log.d( TAG, "Recipe Detail Activity: " + description);
+        Log.d( TAG, "Recipe Detail Activity: " + videoURL);
+        Log.d( TAG, "Recipe Detail Activity: " + thumbnailURL);
 
 
         Fragment detailFragment = new DetailFragment(); // Get Fragment Instance

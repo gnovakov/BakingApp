@@ -9,13 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bakingapp.R;
+import com.example.bakingapp.main.RecipesAdapter;
+import com.example.bakingapp.models.Step;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
+
 public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.ViewHolder> {
 
-    private JSONArray mRecipeSteps;
+    private static final String TAG = StepsAdapter.class.getSimpleName();
+
+    private  ArrayList<Step> mRecipeSteps;
 
     private OnStepClickListener mOnStepClickListener;
 
@@ -23,7 +29,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.ViewHolder> 
         void onStepClick(int clickStepPosition);
     }
 
-    public StepsAdapter(JSONArray recipeSteps, OnStepClickListener listener) {
+    public StepsAdapter(ArrayList<Step> recipeSteps, OnStepClickListener listener) {
         mRecipeSteps = recipeSteps;
         mOnStepClickListener = listener;
     }
@@ -40,20 +46,14 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        try {
-            holder.stepName.setText(mRecipeSteps.getJSONObject(position).getString("shortDescription"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+            holder.stepName.setText(mRecipeSteps.get(position).getShortDescription());
     }
 
 
     @Override
     public int getItemCount() {
 
-        return mRecipeSteps.length();
+        return mRecipeSteps.size();
     }
 
 

@@ -29,9 +29,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements  RecipesAdapter.OnRecipeClickListener{
 
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private RecyclerView recipesRecyclerView;
-
     private ArrayList<Recipe> recipes;
 
     private static final String BASE_URL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/";
@@ -57,8 +57,9 @@ public class MainActivity extends AppCompatActivity implements  RecipesAdapter.O
     @Override
     public void onRecipeClick(int clickRecipePosition) {
 
-        Log.d("ON RECIPE CLICK", "onRecipeClick: clicked Name: " + recipes.get(clickRecipePosition).getName());
-        Log.d("ON RECIPE CLICK", "onRecipeClick: clicked Name: " + recipes.get(clickRecipePosition).getIngredients());
+        Log.d(TAG, "onRecipeClick: clicked Name: " + recipes.get(clickRecipePosition).getName());
+        Log.d(TAG, "onRecipeClick: clicked Ingredients: " + recipes.get(clickRecipePosition).getIngredients());
+        Log.d(TAG, "onRecipeClick: clicked Steps: " + recipes.get(clickRecipePosition).getSteps());
 
         //Set the intent to the Activity the data is to be sent to
         Intent intent = new Intent(this, recipeScreenActivity.class);
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements  RecipesAdapter.O
 
         intent.putExtra("recipeName", recipes.get(clickRecipePosition).getName());
         intent.putParcelableArrayListExtra("recipeIngredients", recipes.get(clickRecipePosition).getIngredients());
+        intent.putParcelableArrayListExtra("recipeSteps", recipes.get(clickRecipePosition).getSteps());
 
 
         //Start the Activity the Intent is set to when an item is clicked, all data added with intent.putExtra will be sent to that Activity.
@@ -100,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements  RecipesAdapter.O
             public void onFailure(Call<ArrayList<Recipe>> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "error :(", Toast.LENGTH_SHORT).show();
 
-                Log.d( "TEST", "mTwoPane False: " + t);
+                Log.d( TAG, "Retrofit Failure: " + t);
 
             }
         });

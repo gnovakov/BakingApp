@@ -9,15 +9,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bakingapp.R;
+import com.example.bakingapp.main.RecipesAdapter;
+import com.example.bakingapp.models.Ingredient;
+import com.example.bakingapp.models.Step;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
+
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.ViewHolder> {
 
-    private JSONArray mIngredientsSteps;
+    private static final String TAG = IngredientsAdapter.class.getSimpleName();
+    private  ArrayList<Ingredient> mIngredientsSteps;
 
-    public IngredientsAdapter(JSONArray recipeIngredientsData) {
+    public IngredientsAdapter( ArrayList<Ingredient> recipeIngredientsData) {
         mIngredientsSteps = recipeIngredientsData;
     }
 
@@ -34,13 +40,10 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     @Override
     public void onBindViewHolder(@NonNull IngredientsAdapter.ViewHolder holder, int position) {
 
-        try {
-            holder.ingredientsName.setText(mIngredientsSteps.getJSONObject(position).getString("quantity") +
-                    " " + mIngredientsSteps.getJSONObject(position).getString("measure")  +
-                    " " + mIngredientsSteps.getJSONObject(position).getString("ingredient"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            holder.ingredientsName.setText(mIngredientsSteps.get(position).getQuantity() +
+                    " " + mIngredientsSteps.get(position).getMeasure()  +
+                    " " + mIngredientsSteps.get(position).getIngredient());
+
 
 
 
@@ -48,7 +51,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
     @Override
     public int getItemCount() {
-        return mIngredientsSteps.length();
+        return mIngredientsSteps.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

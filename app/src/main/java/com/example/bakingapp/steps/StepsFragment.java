@@ -17,11 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bakingapp.R;
 import com.example.bakingapp.details.DetailActivity;
 import com.example.bakingapp.details.DetailFragment;
+import com.example.bakingapp.models.Ingredient;
+import com.example.bakingapp.models.Step;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
+
 public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickListener {
+
+    private static final String TAG = StepsFragment.class.getSimpleName();
 
     RecyclerView stepsRecyclerView;
     StepsAdapter stepsAdapter;
@@ -30,12 +35,9 @@ public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickL
     IngredientsAdapter ingredientsAdapter;
 
     private String recipeNameData;
-    private String recipeStepsData;
-    private String recipeIngredientsData;
+    private ArrayList<Ingredient> recipeIngredientsData;
+    private ArrayList<Step> recipeStepsData;
     private boolean mTwoPane;
-
-    private JSONArray recipeStepsDataArray;
-    private JSONArray recipeIngredientsDataArray;
 
 
     public StepsFragment() {}
@@ -49,27 +51,22 @@ public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickL
 
         // Get Argument that was passed from activity
          recipeNameData = getArguments().getString("recipeName");
-         //recipeStepsData = getArguments().getString("recipeSteps");
-         //recipeIngredientsData = getArguments().getString("recipeIngredients");
+         recipeStepsData = getArguments().getParcelableArrayList("recipeSteps");
+         recipeIngredientsData = getArguments().getParcelableArrayList("recipeIngredients");
          mTwoPane = getArguments().getBoolean("TWO_PANE");
 
-        try {
-            //recipeStepsDataArray = new JSONArray(recipeStepsData);
-            //recipeIngredientsDataArray = new JSONArray(recipeIngredientsData);
+        Log.d( TAG, "onCreateView: " + "recipe Name: " + recipeNameData);
+        Log.d( TAG, "onCreateView: " + "recipe Steps: " + recipeStepsData);
+        Log.d( TAG, "onCreateView: " + "recipe Ingredients: " + recipeIngredientsData);
 
-            Log.d( "TEST", "TEST: " + "recipeIngredients: " + recipeIngredientsData);
+        recipeName.setText(recipeNameData); // Set the recipe name
 
-            recipeName.setText(recipeNameData); // Set the recipe name
+        //Step Recycler View
+        stepsRv(rootView, recipeStepsData);
 
-            //Step Recycler View
-            //stepsRv(rootView, recipeStepsDataArray);
+        //Ingredient Recycler View
+        ingredientsRv(rootView, recipeIngredientsData);
 
-            //Ingredient Recycler View
-            //ingredientsRv(rootView, recipeIngredientsDataArray);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         return rootView; // return rootView
 
@@ -77,7 +74,7 @@ public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickL
 
 
     //Step Recycler View
-    public void stepsRv(View rootView, JSONArray recipeStepsDataArray) {
+    public void stepsRv(View rootView, ArrayList<Step> recipeStepsData) {
         //Step Recycler View
 
         // Get a reference to recyclerView
@@ -88,7 +85,7 @@ public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickL
         stepsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //Create adaptor and send the data to it
-        stepsAdapter = new StepsAdapter(recipeStepsDataArray, StepsFragment.this);
+        stepsAdapter = new StepsAdapter(recipeStepsData, StepsFragment.this);
 
         // Set adapter to the recycler view
         stepsRecyclerView.setAdapter(stepsAdapter);
@@ -96,7 +93,7 @@ public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickL
     }
 
     //Ingredient Recycler View
-    public void ingredientsRv(View rootView, JSONArray recipeIngredientsDataArray) {
+    public void ingredientsRv(View rootView, ArrayList<Ingredient> recipeIngredientsData) {
         //Ingredient Recycler View
 
         // Get a reference to recyclerView
@@ -107,7 +104,7 @@ public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickL
         ingredientsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //Create adaptor and send the data to it
-        ingredientsAdapter = new IngredientsAdapter(recipeIngredientsDataArray);
+        ingredientsAdapter = new IngredientsAdapter(recipeIngredientsData);
 
         // Set adapter to the recycler view
         ingredientsRecyclerView.setAdapter(ingredientsAdapter);
@@ -121,11 +118,11 @@ public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickL
             // Create a bundle to pass the data
             Bundle detailsData = new Bundle(); // Use bundle to pass data
 
-            Log.d( "TEST", "STEPS ONE");
+            Log.d( TAG, "STEPS ONE");
 
             // Put data into bundle
             try {
-                detailsData.putString("id", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("id"));
+                detailsData.putString("id", recipeStepsData.getJSONObject(clickStepPosition).getString("id"));
                 //detailsData.putString("shortDescription", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("shortDescription"));
                 //detailsData.putString("description", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("description"));
                 //detailsData.putString("videoURL", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("videoURL"));

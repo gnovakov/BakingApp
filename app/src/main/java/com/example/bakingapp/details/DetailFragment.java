@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.bakingapp.R;
+import com.example.bakingapp.steps.StepsAdapter;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
@@ -25,6 +26,8 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
 public class DetailFragment extends Fragment {
+
+    private static final String TAG = DetailFragment.class.getSimpleName();
 
     private View rootView;
     private String id;
@@ -84,7 +87,7 @@ public class DetailFragment extends Fragment {
             initialisePlayer();
         }
 
-        Log.d( "TEST", "CONTENT_URL: " + CONTENT_URL);
+        Log.d( TAG, "CONTENT_URL: " + CONTENT_URL);
 
         return rootView;
     }
@@ -93,7 +96,7 @@ public class DetailFragment extends Fragment {
     public void onStop() {
         super.onStop();
 
-        Log.d( "TEST", "onStop: " + "STOP");
+        Log.d( TAG, "onStop: " + "STOP");
 
         //stopPlayer();
 
@@ -103,7 +106,7 @@ public class DetailFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.d( "TEST", "onDestroyView: " + "DESTROY");
+        Log.d( TAG, "onDestroyView: " + "DESTROY");
         stopPlayer();
     }
 

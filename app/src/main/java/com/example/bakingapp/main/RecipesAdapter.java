@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bakingapp.R;
 import com.example.bakingapp.models.Recipe;
+import com.example.bakingapp.steps.recipeScreenActivity;
 
 import org.json.JSONException;
 
@@ -18,6 +19,7 @@ import java.util.List;
 
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHolder> {
 
+    private static final String TAG = RecipesAdapter.class.getSimpleName();
 
     private Context ctx;
     private List<Recipe> mRecipesArray;

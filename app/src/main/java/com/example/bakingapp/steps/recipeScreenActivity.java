@@ -12,18 +12,23 @@ import android.widget.Toast;
 
 import com.example.bakingapp.R;
 import com.example.bakingapp.details.DetailFragment;
+import com.example.bakingapp.main.MainActivity;
 import com.example.bakingapp.models.Ingredient;
 import com.example.bakingapp.models.Recipe;
+import com.example.bakingapp.models.Step;
 
 import java.util.ArrayList;
 
 public class recipeScreenActivity extends AppCompatActivity {
 
+    private static final String TAG = recipeScreenActivity.class.getSimpleName();
+
     private boolean mTwoPane;
     private String recipeName;
-    private String recipeSteps;
     private ArrayList<Ingredient> recipeIngredients;
-    private String TWO_PANE;
+    private ArrayList<Step> recipeSteps;
+
+    public static final String TWO_PANE = "twoPaneArgs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +37,11 @@ public class recipeScreenActivity extends AppCompatActivity {
 
         if (findViewById(R.id.recipe_details_fragment) != null) {
             mTwoPane = true; //Inflate steps Fragment & Details Fragment
-            Log.d( "TEST", "mTwoPane True: " + mTwoPane);
+            Log.d( TAG, "mTwoPane True: " + mTwoPane);
 
         } else {
             mTwoPane = false; //Only inflate steps Fragment
-            Log.d( "TEST", "mTwoPane False: " + mTwoPane);
+            Log.d( TAG, "mTwoPane False: " + mTwoPane);
         }
 
         // Receive Intent Data from Main Activity
@@ -46,9 +51,11 @@ public class recipeScreenActivity extends AppCompatActivity {
 
             recipeName = recipeIntent.getStringExtra("recipeName");
             recipeIngredients = recipeIntent.getParcelableArrayListExtra("recipeIngredients");
-            //recipeSteps = recipeIntent.getStringExtra("recipeSteps");
-            Log.d( "TEST", "onCreate: " + "recipeName: " + recipeName);
-            Log.d( "TEST", "onCreate: " + "ingredients: " + recipeIngredients);
+            recipeSteps = recipeIntent.getParcelableArrayListExtra("recipeSteps");
+
+            Log.d( TAG, "onCreate: " + "recipe Name: " + recipeName);
+            Log.d( TAG, "onCreate: " + "recipe Ingredients: " + recipeIngredients);
+            Log.d( TAG, "onCreate: " + "recipe Steps: " + recipeSteps);
         }
 
 
@@ -67,13 +74,11 @@ public class recipeScreenActivity extends AppCompatActivity {
         // Create a bundle to pass the data
         Bundle data = new Bundle(); // Use bundle to pass data
 
-        Log.d( "TEST", "STEPS ONE");
-
         // Put data into bundle
         data.putString("recipeName", recipeName);
-        //data.putString("recipeSteps", recipeSteps);
-        //data.putString("recipeIngredients", recipeIngredients);
-        //data.putBoolean("TWO_PANE", mTwoPane);
+        data.putParcelableArrayList("recipeSteps", recipeSteps);
+        data.putParcelableArrayList("recipeIngredients", recipeIngredients);
+        data.putBoolean("TWO_PANE", mTwoPane);
 
         if (recipeName != null) {
             Fragment stepsFragment = new StepsFragment(); // Get Fragment Instance
