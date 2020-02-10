@@ -20,8 +20,6 @@ import com.example.bakingapp.details.DetailFragment;
 import com.example.bakingapp.models.Ingredient;
 import com.example.bakingapp.models.Step;
 
-import org.json.JSONException;
-
 import java.util.ArrayList;
 
 public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickListener {
@@ -121,18 +119,15 @@ public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickL
             Log.d( TAG, "STEPS ONE");
 
             // Put data into bundle
-            try {
-                detailsData.putString("id", recipeStepsData.getJSONObject(clickStepPosition).getString("id"));
-                //detailsData.putString("shortDescription", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("shortDescription"));
-                //detailsData.putString("description", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("description"));
-                //detailsData.putString("videoURL", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("videoURL"));
-                //detailsData.putString("thumbnailURL", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("thumbnailURL"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            detailsData.putInt("id", recipeStepsData.get(clickStepPosition).getId());
+            detailsData.putString("shortDescription", recipeStepsData.get(clickStepPosition).getShortDescription());
+            detailsData.putString("description", recipeStepsData.get(clickStepPosition).getDescription());
+            detailsData.putString("videoURL", recipeStepsData.get(clickStepPosition).getVideoURL());
+            detailsData.putString("thumbnailURL", recipeStepsData.get(clickStepPosition).getThumbnailURL());
 
 
-            if (recipeStepsDataArray != null) {
+
+            if (recipeStepsData != null) {
 
                 Fragment detailFragment = new DetailFragment(); // Get Fragment Instance
 
@@ -151,15 +146,12 @@ public class StepsFragment extends Fragment implements StepsAdapter.OnStepClickL
 
             Intent intent = new Intent(getContext(), DetailActivity.class);
 
-            try {
-                intent.putExtra("id", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("id"));
-                intent.putExtra("shortDescription", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("shortDescription"));
-                intent.putExtra("description", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("description"));
-                intent.putExtra("videoURL", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("videoURL"));
-                intent.putExtra("thumbnailURL", recipeStepsDataArray.getJSONObject(clickStepPosition).getString("thumbnailURL"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            intent.putExtra("id", recipeStepsData.get(clickStepPosition).getId());
+            intent.putExtra("shortDescription", recipeStepsData.get(clickStepPosition).getShortDescription());
+            intent.putExtra("description", recipeStepsData.get(clickStepPosition).getDescription());
+            intent.putExtra("videoURL", recipeStepsData.get(clickStepPosition).getVideoURL());
+            intent.putExtra("thumbnailURL", recipeStepsData.get(clickStepPosition).getThumbnailURL());
+
 
             //Start the Activity the Intent is set to when an item is clicked, all data added with intent.putExtra will be sent to that Activity.
             startActivity(intent);
