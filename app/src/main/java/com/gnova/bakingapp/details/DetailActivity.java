@@ -1,4 +1,4 @@
-package com.example.bakingapp.details;
+package com.gnova.bakingapp.details;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -8,8 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.bakingapp.R;
-import com.example.bakingapp.steps.StepsAdapter;
+import com.gnova.bakingapp.R;
 
 public class DetailActivity extends AppCompatActivity {
 

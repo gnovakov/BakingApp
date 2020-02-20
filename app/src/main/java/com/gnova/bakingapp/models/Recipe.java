@@ -1,4 +1,4 @@
-package com.example.bakingapp.models;
+package com.gnova.bakingapp.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

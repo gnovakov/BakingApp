@@ -1,4 +1,4 @@
-package com.example.bakingapp;
+package com.gnova.bakingapp;
 
 import android.content.Context;
 

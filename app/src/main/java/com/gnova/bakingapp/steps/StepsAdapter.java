@@ -1,4 +1,4 @@
-package com.example.bakingapp.steps;
+package com.gnova.bakingapp.steps;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bakingapp.R;
-import com.example.bakingapp.main.RecipesAdapter;
-import com.example.bakingapp.models.Step;
-
-import org.json.JSONArray;
-import org.json.JSONException;
+import com.gnova.bakingapp.R;
+import com.gnova.bakingapp.models.Step;
 
 import java.util.ArrayList;
 

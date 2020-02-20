@@ -1,4 +1,4 @@
-package com.example.bakingapp.steps;
+package com.gnova.bakingapp.steps;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,11 +14,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bakingapp.R;
-import com.example.bakingapp.details.DetailActivity;
-import com.example.bakingapp.details.DetailFragment;
-import com.example.bakingapp.models.Ingredient;
-import com.example.bakingapp.models.Step;
+import com.gnova.bakingapp.R;
+import com.gnova.bakingapp.details.DetailActivity;
+import com.gnova.bakingapp.details.DetailFragment;
+import com.gnova.bakingapp.models.Ingredient;
+import com.gnova.bakingapp.models.Step;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.bakingapp.main;
+package com.gnova.bakingapp.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -6,20 +6,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
-import android.util.Printer;
 import android.widget.Toast;
 
-import com.example.bakingapp.api.JsonRecipesApi;
-import com.example.bakingapp.models.Ingredient;
-import com.example.bakingapp.models.Recipe;
-import com.example.bakingapp.steps.recipeScreenActivity;
-import com.example.bakingapp.R;
-import com.google.gson.Gson;
+import com.gnova.bakingapp.api.JsonRecipesApi;
+import com.gnova.bakingapp.models.Recipe;
+import com.gnova.bakingapp.steps.recipeScreenActivity;
+import com.gnova.bakingapp.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -84,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements  RecipesAdapter.O
                 .build();
 
         JsonRecipesApi jsonRecipesApi = retrofit.create(JsonRecipesApi.class);
+
         Call<ArrayList<Recipe>> call = jsonRecipesApi.getRecipes();
 
         call.enqueue(new Callback<ArrayList<Recipe>>() {

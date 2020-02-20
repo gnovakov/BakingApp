@@ -1,6 +1,6 @@
-package com.example.bakingapp.api;
+package com.gnova.bakingapp.api;
 
-import com.example.bakingapp.models.Recipe;
+import com.gnova.bakingapp.models.Recipe;
 
 import java.util.ArrayList;
 

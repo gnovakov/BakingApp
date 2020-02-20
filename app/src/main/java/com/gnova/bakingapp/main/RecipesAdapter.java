@@ -1,4 +1,4 @@
-package com.example.bakingapp.main;
+package com.gnova.bakingapp.main;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,11 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bakingapp.R;
-import com.example.bakingapp.models.Recipe;
-import com.example.bakingapp.steps.recipeScreenActivity;
-
-import org.json.JSONException;
+import com.gnova.bakingapp.R;
+import com.gnova.bakingapp.models.Recipe;
 
 import java.util.List;
 
